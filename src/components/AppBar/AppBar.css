@@ -1,0 +1,14 @@
+/*
+ * Tezos-monsters - play game to lean Ligo and Tezos
+ * Copyright (c) 2020. Mikhail Lazarev
+ *
+ */
+
+.woodBar {
+    background-image: url('/images/back_start.jpg');
+    background-repeat: repeat;
+    height: 45px;
+    width: 100%;
+    padding: 0;
+    color: #fab70dff;
+}
