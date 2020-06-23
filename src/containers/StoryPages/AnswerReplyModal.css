@@ -7,9 +7,9 @@
 .amWindow {
     position: absolute;
     z-index: 900;
-    width: 500px;
-    height: 250px;
-    backgroundColor: #310e0e;
+    width: 600px;
+    min-height: 250px;
+    background-color: #310e0e;
     border: 10px solid white;
     padding: 20px;
     justify-content: center;

@@ -18,7 +18,7 @@ import {getDetailsItem} from "../../store/dataloader";
 
 export const StoryScreen: React.FC = () => {
     const dispatch = useDispatch();
-  const [modalVisible, setModalVisible] = useState(false);
+
   const profile = useSelector((state: RootState) => state.profile);
   const {currentPage} = profile;
 
@@ -30,21 +30,14 @@ export const StoryScreen: React.FC = () => {
         getDetailsItem(state.stories.Details, currentPage)
     );
 
-  const onModalPressed = () => {
-    setModalVisible(false);
-  };
+
 
   if (dataItem === undefined || dataItem.data === undefined) return <>"Loading"</>
   const view = dataItem.data.isCodePage ? "EEE" : <BookView data={dataItem.data} />
 
   return (
     <Container fluid style={{ backgroundColor: "#000" }}>
-      <AnswerReplyModal
-        header={"You are wrong"}
-        text={"Hi"}
-        onPress={onModalPressed}
-        visible={modalVisible}
-      />
+
         {view}
     </Container>
   );

@@ -1,3 +1,11 @@
+/*
+ * Tezos-monsters - play game to lean Ligo and Tezos
+ * Copyright (c) 2020. Mikhail Lazarev
+ *
+ */
+
+import {Answer} from "./answer";
+
 export interface StoryPage {
 
      id: string;
@@ -7,12 +15,8 @@ export interface StoryPage {
      image: string;
      hasQuestions: boolean;
      isCodePage: boolean;
-     answers: Answers[];
+     answers: Answer[];
 
-
-}
-
-export interface Answers {
 
 }
 

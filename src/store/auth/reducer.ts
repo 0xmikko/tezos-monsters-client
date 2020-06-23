@@ -20,7 +20,6 @@ interface AuthStateType {
   errors: {};
   signup_success: boolean;
   status: STATUS;
-  webcode?: string;
 }
 
 export interface AuthPayload {
@@ -31,16 +30,7 @@ export interface AuthPayload {
   statusText?: string;
 }
 
-export interface GetCodePayload {
- code: string
-}
-
 export interface AuthActionsType {
-  type: string;
-  payload: AuthPayload;
-}
-
-export interface GetCodeActionsType {
   type: string;
   payload: AuthPayload;
 }
@@ -51,7 +41,6 @@ const initialState: AuthStateType = {
   errors: {},
   signup_success: false,
   status: STATUS.ACTIVE,
-  webcode: '',
 };
 
 export default (
@@ -116,11 +105,6 @@ export default (
         status: STATUS.SUCCESS,
       };
 
-    case auth.GETCODE_SUCCESS:
-      return {
-        ...state,
-        webcode: action.payload.access,
-      };
     default:
       return state;
   }

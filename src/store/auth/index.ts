@@ -16,10 +16,6 @@ export const SIGNUP_REQUEST = '@@auth/SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = '@@auth/SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = '@@auth/SIGNUP_FAILURE';
 
-export const GETCODE_REQUEST = '@@auth/GETCODE_REQUEST';
-export const GETCODE_SUCCESS = '@@auth/GETCODE_SUCCESS';
-export const GETCODE_FAILURE = '@@auth/GETCODE_FAILURE';
-
 export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST';
 export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED';
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';

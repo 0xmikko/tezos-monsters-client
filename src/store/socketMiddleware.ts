@@ -1,6 +1,7 @@
 /*
- * Buzzzchat - P2P Chat based on Bluzelle DB
+ * Tezos-monsters - play game to lean Ligo and Tezos
  * Copyright (c) 2020. Mikhail Lazarev
+ *
  */
 
 import io from 'socket.io-client';

@@ -13,12 +13,14 @@ export interface MagicButtonProps {
 }
 
 export const MagicButton : React.FC<MagicButtonProps> = ({title, onClick}) => {
-    return <Button onClick={onClick} style={style}>{title}</Button>
+    return <Button className='align-self-center' onClick={onClick} style={style}>{title}</Button>
 }
 
 const style = {
     marginTop: '10px',
     marginBottom: '10px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     width: '80%',
     backgroundColor: '#6f1b1b',
     fontFamily: 'SansSerif',

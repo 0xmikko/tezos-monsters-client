@@ -34,8 +34,7 @@ export const updateOperationStatusByAction = (
     return updateStatus(
       opHash || '0',
       STATUS.FAILURE,
-      // @ts-ignore
-      action === undefined ? 'Network error' : action.payload.response ? action.payload.respons.error : action.payload.message,
+      action === undefined ? 'Network error' : action.payload.response ? action.payload.response.error : action.payload.message,
     );
   }
   return updateStatus(opHash || '0', STATUS.SUCCESS);

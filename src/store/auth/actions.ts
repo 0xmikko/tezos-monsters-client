@@ -1,48 +1,47 @@
 /*
- * Buzzzchat - P2P Chat based on Bluzelle DB
+ * Tezos-monsters - play game to lean Ligo and Tezos
  * Copyright (c) 2020. Mikhail Lazarev
+ *
  */
-import {Action} from 'redux';
-import {ThunkAction} from 'redux-thunk';
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
 import {
   createAction,
   RSAA,
   RSAAAction,
   RSAAResultAction,
-} from 'redux-api-middleware';
-import {getFullAPIAddress} from '../utils/api';
-import * as actionTypes from './';
+} from "redux-api-middleware";
+import { getFullAPIAddress } from "../utils/api";
+import * as actionTypes from "./";
 
-import {RootState} from '../index';
-import {AuthPayload} from './reducer';
-import {BACKEND_ADDR, SSO_ADDR} from '../../config';
-import {actionsAfterAuth} from '../actions';
-import {GETCODE_SUCCESS, LOGIN_FAILURE, LOGIN_SUCCESS} from './';
+import { RootState } from "../index";
+import { AuthPayload } from "./reducer";
+import { SSO_ADDR } from "../../config";
+import { actionsAfterAuth } from "../actions";
 
 export const login = (
-    email: string,
-    password: string,
+  email: string,
+  password: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch,
+  dispatch
 ) => {
-  const endpoint = '/auth/login/';
-  const json = JSON.stringify({email, password});
+  const endpoint = "/auth/login/";
+  const json = JSON.stringify({ email, password });
 
   dispatch(authenticate(endpoint, json));
 };
 
 export const oauthAuthenticate = (
-    provider: string,
-    code: string,
-): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
-
-  console.log("FOPFOF", provider, code, SSO_ADDR)
-  const endpoint = '/auth/google/done/';
-  const json = JSON.stringify({provider, code});
+  provider: string,
+  code: string
+): ThunkAction<void, RootState, unknown, Action<string>> => async (
+  dispatch
+) => {
+  const endpoint = "/auth/google/done/";
+  const json = JSON.stringify({ provider, code });
 
   dispatch(authenticate(endpoint, json));
 };
-
 
 export const clearStatus = () => ({
   type: actionTypes.CLEAR_AUTH_DATA,
@@ -50,16 +49,16 @@ export const clearStatus = () => ({
 // Send request for refresh token
 
 export const refreshAccessToken = (
-    token: string,
+  token: string
 ): RSAAAction<any, AuthPayload, void> => ({
   [RSAA]: {
-    endpoint: getFullAPIAddress('/auth/token/refresh/', undefined, SSO_ADDR),
-    method: 'POST',
-    body: JSON.stringify({refresh: token}),
-    headers: {'Content-Type': 'application/json'},
-    credentials: 'same-origin',
+    endpoint: getFullAPIAddress("/auth/token/refresh/", undefined, SSO_ADDR),
+    method: "POST",
+    body: JSON.stringify({ refresh: token }),
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
     // @ts-ignore
-    options: {timeout: 10000},
+    options: { timeout: 10000 },
     types: [
       actionTypes.TOKEN_REQUEST,
       actionTypes.TOKEN_RECEIVED,
@@ -69,21 +68,20 @@ export const refreshAccessToken = (
 });
 
 export const signup = (
-    email: string,
-    password: string,
+  email: string,
+  password: string
 ): RSAAAction<any, AuthPayload, void> =>
-    createAction({
-      endpoint: getFullAPIAddress('/auth/signup/', undefined, SSO_ADDR),
-      method: 'POST',
-      body: JSON.stringify({email, password}),
-      headers: {'Content-Type': 'application/json'},
-      types: [
-        actionTypes.SIGNUP_REQUEST,
-        actionTypes.SIGNUP_SUCCESS,
-        actionTypes.SIGNUP_FAILURE,
-      ],
-    });
-
+  createAction({
+    endpoint: getFullAPIAddress("/auth/signup/", undefined, SSO_ADDR),
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+    headers: { "Content-Type": "application/json" },
+    types: [
+      actionTypes.SIGNUP_REQUEST,
+      actionTypes.SIGNUP_SUCCESS,
+      actionTypes.SIGNUP_FAILURE,
+    ],
+  });
 
 /*
   Authenticate flow
@@ -91,32 +89,32 @@ export const signup = (
   @param body
  */
 export const authenticate = (
-    endpoint: string,
-    body: string,
+  endpoint: string,
+  body: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch,
+  dispatch
 ) => {
   const result = await dispatch<AuthPayload, void>(
-      createAction({
-        endpoint: getFullAPIAddress(endpoint, undefined, SSO_ADDR),
-        method: 'POST',
-        body: body,
-        headers: {'Content-Type': 'application/json'},
-        types: [
-          actionTypes.LOGIN_REQUEST,
-          actionTypes.LOGIN_SUCCESS,
-          actionTypes.LOGIN_FAILURE,
-        ],
-      }),
+    createAction({
+      endpoint: getFullAPIAddress(endpoint, undefined, SSO_ADDR),
+      method: "POST",
+      body: body,
+      headers: { "Content-Type": "application/json" },
+      types: [
+        actionTypes.LOGIN_REQUEST,
+        actionTypes.LOGIN_SUCCESS,
+        actionTypes.LOGIN_FAILURE,
+      ],
+    })
   );
 
   if (
-      result &&
-      !result.error &&
-      result.payload.refresh &&
-      result.type === actionTypes.LOGIN_SUCCESS
+    result &&
+    !result.error &&
+    result.payload.refresh &&
+    result.type === actionTypes.LOGIN_SUCCESS
   ) {
-    localStorage.setItem('token', result.payload.refresh.toString());
+    localStorage.setItem("token", result.payload.refresh.toString());
     await dispatch(actionsAfterAuth());
   }
 
@@ -124,11 +122,11 @@ export const authenticate = (
 };
 
 export const logout = (): ThunkAction<
-    void,
-    RootState,
-    unknown,
-    Action<string>
-    > => async (dispatch) => {
+  void,
+  RootState,
+  unknown,
+  Action<string>
+> => async (dispatch) => {
   // Clear local storage at logout
   await localStorage.clear();
   dispatch({
@@ -136,31 +134,31 @@ export const logout = (): ThunkAction<
   });
 
   dispatch({
-    type: 'PROFILE_LOGOUT',
-  })
+    type: "PROFILE_LOGOUT",
+  });
 };
 
 export const getTokenAtStartup = (): ThunkAction<
-    void,
-    RootState,
-    unknown,
-    Action<string>
-    > => async (dispatch) => {
-  const token =localStorage.getItem('token');
+  void,
+  RootState,
+  unknown,
+  Action<string>
+> => async (dispatch) => {
+  const token = localStorage.getItem("token");
 
   if (token) {
     const result = await dispatch(refreshAccessToken(token));
     if (
-        !result.error &&
-        result.payload.refresh &&
-        result.type === actionTypes.TOKEN_RECEIVED
+      !result.error &&
+      result.payload.refresh &&
+      result.type === actionTypes.TOKEN_RECEIVED
     ) {
       await dispatch(actionsAfterAuth());
     }
   }
 };
 
-declare module 'redux-thunk' {
+declare module "redux-thunk" {
   /*
    * Overload to add api middleware support to Redux's dispatch() function.
    * Useful for react-redux or any other library which could use this type.
@@ -170,7 +168,7 @@ declare module 'redux-thunk' {
     <T extends A>(action: T): T;
     <R>(asyncAction: ThunkAction<R, S, E, A>): R;
     <Payload, Meta>(action: RSAAAction<any, Payload, Meta>): Promise<
-        RSAAResultAction<Payload, Meta>
-        >;
+      RSAAResultAction<Payload, Meta>
+    >;
   }
 }

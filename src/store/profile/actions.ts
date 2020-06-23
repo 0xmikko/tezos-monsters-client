@@ -51,3 +51,14 @@ export const updateProfile: (
   opHash,
 });
 
+export const getAnswer: (
+    answer: string,
+    opHash?: string,
+) => SocketEmitAction = (answer, opHash) => ({
+  type: 'SOCKET_EMIT',
+  namespace,
+  event: 'profile:answer',
+  typeOnFailure: 'PROFILE_FAILURE',
+  payload: {answer},
+  opHash,
+});

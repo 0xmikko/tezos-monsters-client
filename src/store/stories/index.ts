@@ -1,7 +1,5 @@
 /*
- * Lean tool - hypothesis testing application
- *
- * https://github.com/MikaelLazarev/lean-tool/
+ * Tezos-monsters - play game to lean Ligo and Tezos
  * Copyright (c) 2020. Mikhail Lazarev
  *
  */
