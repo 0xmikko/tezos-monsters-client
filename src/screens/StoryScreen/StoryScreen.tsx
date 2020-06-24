@@ -72,7 +72,7 @@ export const StoryScreen: React.FC = () => {
     data === undefined ? (
       "Loading"
     ) : data.isCodePage ? (
-      <CodePage data={data} onCheckCode={submitCode}/>
+      <CodePage data={data} onCheckCode={submitCode} />
     ) : (
       <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
     );
@@ -84,11 +84,12 @@ export const StoryScreen: React.FC = () => {
         onPress={onModalPressed}
         visible={modalVisible}
       />
+      <AppBar />
       <Container
         fluid
-        style={{ backgroundColor: "#000", overflow: "hidden", height: "100vh" }}
+        style={{ backgroundColor: "#000", overflow: "hidden", height: "100vh",
+        opacity: modalVisible? 0.1 : 1}}
       >
-        <AppBar />
         <Row>
           <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
             {leftPage}

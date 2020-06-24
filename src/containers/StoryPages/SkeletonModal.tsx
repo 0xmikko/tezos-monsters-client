@@ -31,9 +31,11 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
   return (
     <Container
       style={{
+
         top: window.innerHeight / 2 - 100,
         left: window.innerWidth / 2 - 300,
         visibility: visible ? "visible" : "hidden",
+          justifyContent: 'center',
       }}
       className={"amWindow"}
     >
@@ -43,21 +45,26 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
           height={150}
           className="align-self-center mr-3"
         />
-        <Media.Body style={{ marginLeft: "30px" }}>
-          <h3 style={{ color: "#fab70dff" }}>{message.header}</h3>
+        <Media.Body style={{ marginLeft: "30px", width: '100%' }}>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+          <h3 style={{ color: "#fab70dff", }}>{message.header}</h3>
+
           <p style={{ color: "#fab70dff", fontSize: "20pt" }}>{message.text}</p>
+            </div>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    alignContent: "center",
+                }}
+            >
+                <MagicButton onClick={onPress} title={message.buttonText || "Ok"} />
+            </div>
+
         </Media.Body>
       </Media>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <MagicButton onClick={onPress} title={message.buttonText || "Ok"} />
-      </div>
+
     </Container>
   );
 };
@@ -70,5 +77,9 @@ const Container = styled.div`
   background-color: #310e0e;
   border: 10px solid white;
   padding: 20px;
+  display: flex;
   justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
 `;
