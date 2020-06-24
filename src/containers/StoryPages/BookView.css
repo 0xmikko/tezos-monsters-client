@@ -14,13 +14,13 @@
 
 .page2 {
     height: 100vh;
-    background-image: url('./book.jpg');
+    background-image: url('./p_left.jpg');
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     padding-top: 50px;
     padding-left: 40px;
+    overflow-y: scroll;
 }
 
 

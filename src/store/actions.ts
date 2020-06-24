@@ -5,8 +5,8 @@
  */
 
 import * as auth from './auth/actions';
+import * as game from './game/actions';
 import * as stories from './stories/actions';
-// import * as contacts from './contacts/actions';
 import * as profile from './profile/actions';
 import * as operations from './operations/actions';
 import {ThunkAction} from 'redux-thunk';
@@ -15,6 +15,7 @@ import {Action} from 'redux';
 
 export default {
   auth,
+  game,
   stories,
   profile,
   operations,
@@ -31,8 +32,7 @@ export const actionsAfterAuth = (): ThunkAction<
   dispatch(profile.connectSocket());
   dispatch(profile.getProfile('actionsAfterAuth'));
   dispatch(operations.connectSocket());
-  // dispatch(chats.connectSocket());
-  // dispatch(contacts.connectSocket());
+  dispatch(game.connectSocket());
 
   console.log('[SOCKET.IO]: All listeners connected!');
 };

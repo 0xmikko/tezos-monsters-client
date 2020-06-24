@@ -12,10 +12,8 @@ import {
   createDataLoaderListActions,
 } from "../dataloader/actions";
 
-export const getList = createDataLoaderListActions(endpoint, STORIES_PREFIX);
-
 export const getDetails = createDataLoaderDetailActions(
-  endpoint + ":id/",
+  endpoint + "current/",
   STORIES_PREFIX
 );
 

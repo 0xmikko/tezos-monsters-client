@@ -14,7 +14,7 @@ export const getFullAPIAddress = (
   // Decode URI if it was in %% format, it's important
   // when we receive next_url in pagination
   url = decodeURI(url);
-  url = url.startsWith('http://') ? url : host + url;
+  url = url.startsWith('http://') || url.startsWith('https://') ? url : host + url;
   let pos = 0;
   if (params !== undefined) {
     for (let key in params) {

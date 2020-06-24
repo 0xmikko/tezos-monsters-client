@@ -17,8 +17,8 @@ export const MagicButton : React.FC<MagicButtonProps> = ({title, onClick}) => {
 }
 
 const style = {
-    marginTop: '10px',
-    marginBottom: '10px',
+    marginTop: '5px',
+    marginBottom: '5px',
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '80%',

@@ -15,6 +15,7 @@ import {getFullAPIAddress} from '../utils/api';
 import {withAuth} from '../auth';
 import {Profile} from '../../core/profile';
 import {SocketEmitAction} from '../socketMiddleware';
+import {Code} from "../../core/code";
 
 export const connectSocket = (): ThunkAction<
   void,
@@ -28,6 +29,7 @@ export const connectSocket = (): ThunkAction<
     event: 'profile:updateDetails',
     typeOnSuccess: 'PROFILE_SUCCESS',
   });
+
 };
 
 export const getProfile: (opHash: string) => SocketEmitAction = (opHash) => ({
@@ -48,17 +50,5 @@ export const updateProfile: (
   event: 'profile:update',
   typeOnFailure: 'PROFILE_FAILURE',
   payload: profile,
-  opHash,
-});
-
-export const getAnswer: (
-    answer: string,
-    opHash?: string,
-) => SocketEmitAction = (answer, opHash) => ({
-  type: 'SOCKET_EMIT',
-  namespace,
-  event: 'profile:answer',
-  typeOnFailure: 'PROFILE_FAILURE',
-  payload: {answer},
   opHash,
 });

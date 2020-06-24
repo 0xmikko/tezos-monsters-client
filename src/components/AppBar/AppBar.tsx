@@ -14,6 +14,7 @@ import actions from "../../store/actions";
 import { AppBarElement } from "./AppBarElement";
 import logo from "./logo.png";
 import "./AppBar.css";
+import {intWithCommas} from "../../utils/formaters";
 
 // import AppSearch from "./AppSearch"
 
@@ -54,7 +55,7 @@ export const AppBar = () => {
               fontSize: 30,
             }}
           >
-            {gold}
+            {intWithCommas(gold)}
           </span>
           <img
             src={"/images/share.png"}

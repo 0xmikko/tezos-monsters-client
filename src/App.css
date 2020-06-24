@@ -32,6 +32,7 @@ body {
   color: #001737;
   text-align: left;
   background-color: #fff;
+  overflow: hidden;
 }
 
 [tabindex='-1']:focus {

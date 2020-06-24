@@ -6,39 +6,34 @@
 
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Media } from "react-bootstrap";
-import "./StoryScreen.css";
-import { MagicButton } from "../../components/Button/MagicButton";
-import { ThroughFade } from "../../components/ThroughFadeEffect/ThroughFade";
-import { AnswerReplyModal } from "../../containers/StoryPages/AnswerReplyModal";
 import { BookView } from "../../containers/StoryPages/BookView";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import actions from "../../store/actions";
-import {getDetailsItem} from "../../store/dataloader";
+import { CodePage } from "../../containers/CodePage/CodePages";
 
 export const StoryScreen: React.FC = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const profile = useSelector((state: RootState) => state.profile);
-  const {currentPage} = profile;
+  const { currentPage } = profile;
 
   useEffect(() => {
-      dispatch(actions.stories.getDetails(currentPage))
-  }, [currentPage])
+    dispatch(actions.game.getCurrentPage());
+  }, [currentPage]);
 
-    const dataItem = useSelector((state: RootState) =>
-        getDetailsItem(state.stories.Details, currentPage)
-    );
+  const data = useSelector((state: RootState) => state.game.storyPage);
 
-
-
-  if (dataItem === undefined || dataItem.data === undefined) return <>"Loading"</>
-  const view = dataItem.data.isCodePage ? "EEE" : <BookView data={dataItem.data} />
+  if (data === undefined) return <>"Loading"</>;
+  const view = data.isCodePage ? (
+    <CodePage data={data} />
+  ) : (
+    <BookView data={data} />
+  );
 
   return (
-    <Container fluid style={{ backgroundColor: "#000" }}>
-
-        {view}
+    <Container fluid style={{ backgroundColor: "#000", overflow: "hidden" }}>
+      {view}
     </Container>
   );
 };
