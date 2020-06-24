@@ -55,7 +55,7 @@ export const Router: React.FC = () => {
     case STATUS.SUCCESS:
       return (
         <>
-          <AppBar />
+
           <Switch>
             <Route exact path="/" component={WelcomeScreen} />
             <Route exact path="/story" component={StoryScreen} />

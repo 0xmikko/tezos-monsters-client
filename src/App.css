@@ -63,9 +63,25 @@ h2 {
 
 p {
   font-family: 'SansSerif';
-  font-size: 30px;
+
+  font-size: 20px;
   margin-top: 0;
   margin-bottom: 1rem;
+  color: black;
+}
+
+li {
+  font-family: 'SansSerif';
+
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+pre {
+  font-size: 16px;
+  background-color: #e6edf5;
 }
 
 .onescreen {

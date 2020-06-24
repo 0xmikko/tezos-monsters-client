@@ -15,6 +15,7 @@ export interface StoryPage {
      image: string;
      hasQuestions: boolean;
      isCodePage: boolean;
+     initialCode?: string;
      answers: Answer[];
 
 
