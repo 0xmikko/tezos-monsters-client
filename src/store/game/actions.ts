@@ -7,7 +7,6 @@
 
 import {SocketEmitAction} from "../socketMiddleware";
 import {namespace} from "./index";
-import {Code} from "../../core/code";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../index";
 import {Action} from "redux";
@@ -63,13 +62,13 @@ export const checkQuizAnswer: (
 });
 
 export const checkCodeAnswer: (
-    code: Code,
+    code: string,
     opHash?: string,
 ) => SocketEmitAction = (code, opHash) => ({
     type: 'SOCKET_EMIT',
     namespace,
     event: 'game:checkCodeAnswer',
     typeOnFailure: 'GAME_FAILURE',
-    payload: code,
+    payload: { code },
     opHash,
 });

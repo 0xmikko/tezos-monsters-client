@@ -9,17 +9,15 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { StoryPage } from "../../core/storyPage";
 
 import { Editor } from "../../components/IDE/editor";
-import { useDispatch, useSelector } from "react-redux";
-import actions from "../../store/actions";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import "./StoryPage.css";
 
 interface CodePageProps {
   data: StoryPage;
+  onCheckCode: (code: string) => void;
 }
-export const CodePage: React.FC<CodePageProps> = ({ data }) => {
-  const dispatch = useDispatch();
-  const [code, setCode] = useState(data.initialCode || '');
+export const CodePage: React.FC<CodePageProps> = ({ data, onCheckCode }) => {
+  const [code, setCode] = useState(data.initialCode || "");
 
   const review = useSelector((state: RootState) => state.game.response);
 
@@ -30,18 +28,7 @@ export const CodePage: React.FC<CodePageProps> = ({ data }) => {
   };
 
   const checkCode = () => {
-    dispatch(
-      actions.game.checkCodeAnswer(
-        {
-          code,
-          syntax: "pascaligo",
-          entrypoint: "main",
-          parameters: "sds",
-          storage: "sds",
-        },
-        "Hash"
-      )
-    );
+    onCheckCode(code);
   };
 
   return (

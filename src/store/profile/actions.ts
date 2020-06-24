@@ -7,15 +7,9 @@
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {RootState} from '../index';
-import {updateStatus} from '../operations/actions';
-import {createAction} from 'redux-api-middleware';
-import {STATUS} from '../utils/status';
 import {namespace} from './index';
-import {getFullAPIAddress} from '../utils/api';
-import {withAuth} from '../auth';
 import {Profile} from '../../core/profile';
 import {SocketEmitAction} from '../socketMiddleware';
-import {Code} from "../../core/code";
 
 export const connectSocket = (): ThunkAction<
   void,

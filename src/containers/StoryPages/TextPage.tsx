@@ -6,9 +6,7 @@
 
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import "./StoryPage.css";
 import { StoryPage } from "../../core/storyPage";
-import { Answer } from "../../core/answer";
 
 interface TextPageProps {
   data: StoryPage;

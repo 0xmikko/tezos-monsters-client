@@ -13,68 +13,87 @@ import actions from "../../store/actions";
 import { CodePage } from "../../containers/StoryPages/CodePage";
 import { Answer } from "../../core/answer";
 import { ThroughFade } from "../../components/ThroughFadeEffect/ThroughFade";
-import { AnswerReplyModal } from "../../containers/StoryPages/AnswerReplyModal";
+import {
+  SkeletonMessage,
+  SkeletonModal,
+} from "../../containers/StoryPages/SkeletonModal";
 import { PicturePage } from "../../containers/StoryPages/PicturePage";
 import AppBar from "../../components/AppBar/AppBar";
-import {TextPage} from "../../containers/StoryPages/TextPage";
+import { TextPage } from "../../containers/StoryPages/TextPage";
 
 export const StoryScreen: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [currentAnswer, setCurrentAnswer] = useState<Answer | undefined>(
-    undefined
-  );
+  const [skeletonMessage, setSkeletonMessage] = useState<
+    SkeletonMessage | undefined
+  >(undefined);
   const [modalVisible, setModalVisible] = useState(false);
-
-  const profile = useSelector((state: RootState) => state.profile);
-  const { currentPage } = profile;
 
   useEffect(() => {
     dispatch(actions.game.getCurrentPage());
-  }, [currentPage]);
+  }, []);
 
   const data = useSelector((state: RootState) => state.game.storyPage);
 
-  if (data === undefined) return <>"Loading"</>;
-
   const onAnswerClicked = (answer: Answer) => {
-    setCurrentAnswer(answer);
+    setSkeletonMessage({
+      header: answer.isCorrect ? "Great job!" : "You are wrong!",
+      text: answer.message,
+    });
     setModalVisible(true);
     if (answer !== undefined && answer.isCorrect) {
       dispatch(actions.game.checkQuizAnswer(answer.id));
     }
   };
 
+  const submitCode = (code: string) => {
+    setSkeletonMessage({
+      header: "Checking your code",
+      text: "Relax, we will check you!",
+    });
+    dispatch(actions.game.checkCodeAnswer(code, "Hash"));
+    setModalVisible(true);
+  };
+
   const onModalPressed = () => {
     setModalVisible(false);
   };
 
-  const leftPage = data.isCodePage ? (
-    <TextPage data={data}  />
-  ) : (
-    <PicturePage data={data} />
-  );
+  const leftPage =
+    data === undefined ? (
+      "Loading"
+    ) : data.isCodePage ? (
+      <TextPage data={data} />
+    ) : (
+      <PicturePage data={data} />
+    );
 
-  const rightPage = data.isCodePage ? (
-    <CodePage data={data} />
-  ) : (
-    <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
-  );
+  const rightPage =
+    data === undefined ? (
+      "Loading"
+    ) : data.isCodePage ? (
+      <CodePage data={data} onCheckCode={submitCode}/>
+    ) : (
+      <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
+    );
 
   return (
     <ThroughFade>
-      <AnswerReplyModal
-        data={currentAnswer}
+      <SkeletonModal
+        message={skeletonMessage}
         onPress={onModalPressed}
         visible={modalVisible}
       />
-      <Container fluid style={{ backgroundColor: "#000", overflow: "hidden", height: '100vh' }}>
+      <Container
+        fluid
+        style={{ backgroundColor: "#000", overflow: "hidden", height: "100vh" }}
+      >
         <AppBar />
         <Row>
-          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{padding: 0,   }}>
+          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
             {leftPage}
           </Col>
-          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{padding: 0}}>
+          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
             {rightPage}
           </Col>
         </Row>

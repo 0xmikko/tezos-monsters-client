@@ -6,7 +6,6 @@
 
 import React, { useState } from "react";
 import { StoryPage } from "../../core/storyPage";
-import "./StoryPage.css";
 
 interface PicturePageProps {
   data: StoryPage;

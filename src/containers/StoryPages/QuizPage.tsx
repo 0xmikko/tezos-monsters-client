@@ -7,7 +7,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { MagicButton } from "../../components/Button/MagicButton";
-import "./StoryPage.css";
 import { StoryPage } from "../../core/storyPage";
 import { Answer } from "../../core/answer";
 

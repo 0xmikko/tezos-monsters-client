@@ -4,14 +4,6 @@
  *
  */
 
-export interface Code {
-    code: string,
-    syntax: string,
-    entrypoint: string,
-    parameters:string,
-    storage: string,
-}
-
 export interface CodeResponse {
     result: string,
     error: boolean,

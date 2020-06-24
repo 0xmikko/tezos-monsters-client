@@ -5,30 +5,31 @@
  */
 
 import React from "react";
-import { Button, Media } from "react-bootstrap";
-import "./AnswerReplyModal.css";
-import { Answer } from "../../core/answer";
+import { Media } from "react-bootstrap";
 import { MagicButton } from "../../components/Button/MagicButton";
+import styled from "styled-components";
 
-interface AnswerReplyModalProps {
-  data: Answer | undefined;
+export interface SkeletonMessage {
+  header: string;
+  text: string;
   buttonText?: string;
+}
+
+interface SkeletonProps {
+  message: SkeletonMessage | undefined;
   onPress: () => void;
   visible: boolean;
 }
 
-export const AnswerReplyModal: React.FC<AnswerReplyModalProps> = ({
-  data,
-  buttonText,
+export const SkeletonModal: React.FC<SkeletonProps> = ({
+  message,
   onPress,
   visible,
 }) => {
-  if (data === undefined) {
-    return <div />;
-  }
+  if (message === undefined) return <div />;
 
   return (
-    <div
+    <Container
       style={{
         top: window.innerHeight / 2 - 100,
         left: window.innerWidth / 2 - 300,
@@ -43,10 +44,8 @@ export const AnswerReplyModal: React.FC<AnswerReplyModalProps> = ({
           className="align-self-center mr-3"
         />
         <Media.Body style={{ marginLeft: "30px" }}>
-          <h3 style={{ color: "#fab70dff" }}>
-            {data.isCorrect ? "Great job!" : "You are wrong!"}
-          </h3>
-          <p style={{ color: "#fab70dff", fontSize: "20pt" }}>{data.message}</p>
+          <h3 style={{ color: "#fab70dff" }}>{message.header}</h3>
+          <p style={{ color: "#fab70dff", fontSize: "20pt" }}>{message.text}</p>
         </Media.Body>
       </Media>
       <div
@@ -57,8 +56,19 @@ export const AnswerReplyModal: React.FC<AnswerReplyModalProps> = ({
           alignContent: "center",
         }}
       >
-        <MagicButton onClick={onPress} title={buttonText || "Ok"} />
+        <MagicButton onClick={onPress} title={message.buttonText || "Ok"} />
       </div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  position: absolute;
+  z-index: 900;
+  width: 600px;
+  min-height: 250px;
+  background-color: #310e0e;
+  border: 10px solid white;
+  padding: 20px;
+  justify-content: center;
+`;
