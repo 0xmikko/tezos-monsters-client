@@ -19,23 +19,24 @@ interface SkeletonProps {
   message: SkeletonMessage | undefined;
   onPress: () => void;
   visible: boolean;
+  showButton: boolean;
 }
 
 export const SkeletonModal: React.FC<SkeletonProps> = ({
   message,
   onPress,
   visible,
+  showButton,
 }) => {
   if (message === undefined) return <div />;
 
   return (
     <Container
       style={{
-
         top: window.innerHeight / 2 - 100,
         left: window.innerWidth / 2 - 300,
         visibility: visible ? "visible" : "hidden",
-          justifyContent: 'center',
+        justifyContent: "center",
       }}
       className={"amWindow"}
     >
@@ -45,26 +46,40 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
           height={150}
           className="align-self-center mr-3"
         />
-        <Media.Body style={{ marginLeft: "30px", width: '100%' }}>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-          <h3 style={{ color: "#fab70dff", }}>{message.header}</h3>
+        <Media.Body style={{minWidth: '370px', textAlign: 'center'}}
 
-          <p style={{ color: "#fab70dff", fontSize: "20pt" }}>{message.text}</p>
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    alignContent: "center",
-                }}
-            >
-                <MagicButton onClick={onPress} title={message.buttonText || "Ok"} />
-            </div>
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <h3 style={{ color: "#fab70dff" }}>{message.header}</h3>
 
+            <p style={{ color: "#fab70dff", fontSize: "20pt" }}>
+              {message.text}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+          >
+            <MagicButton onClick={onPress} title={
+
+
+                showButton ? message.buttonText || "Ok" : 'Loading...'}
+                disabled={!showButton}
+            />
+          </div>
         </Media.Body>
       </Media>
-
     </Container>
   );
 };

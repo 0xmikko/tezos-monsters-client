@@ -20,6 +20,7 @@ import {
 import { PicturePage } from "../../containers/StoryPages/PicturePage";
 import AppBar from "../../components/AppBar/AppBar";
 import { TextPage } from "../../containers/StoryPages/TextPage";
+import { STATUS } from "../../store/utils/status";
 
 export const StoryScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,22 +29,53 @@ export const StoryScreen: React.FC = () => {
     SkeletonMessage | undefined
   >(undefined);
   const [modalVisible, setModalVisible] = useState(false);
+  const [showModalButton, setShowModalButton] = useState(false);
 
   useEffect(() => {
     dispatch(actions.game.getCurrentPage());
   }, []);
 
+  const [hash, setHash] = useState("0");
+
   const data = useSelector((state: RootState) => state.game.storyPage);
+
+  const operationStatus = useSelector(
+    (state: RootState) => state.operations.data[hash]?.data?.status
+  );
+
+  // TODO: Move status to new Dataloader component
+
+  useEffect(() => {
+    if (hash !== "0") {
+      switch (operationStatus) {
+        case STATUS.SUCCESS:
+          setShowModalButton(true);
+          setHash("0");
+          break;
+
+        case STATUS.FAILURE:
+          setHash("0");
+          setModalVisible(false);
+          alert("Cant submit your operation to server");
+      }
+    }
+  }, [hash, operationStatus]);
 
   const onAnswerClicked = (answer: Answer) => {
     setSkeletonMessage({
       header: answer.isCorrect ? "Great job!" : "You are wrong!",
       text: answer.message,
     });
-    setModalVisible(true);
+
     if (answer !== undefined && answer.isCorrect) {
-      dispatch(actions.game.checkQuizAnswer(answer.id));
+      const newHash = Date.now().toString();
+      dispatch(actions.game.checkQuizAnswer(answer.id, newHash));
+      setShowModalButton(false);
+      setHash(newHash);
+    } else {
+      setShowModalButton(true);
     }
+    setModalVisible(true);
   };
 
   const submitCode = (code: string) => {
@@ -51,12 +83,16 @@ export const StoryScreen: React.FC = () => {
       header: "Checking your code",
       text: "Relax, we will check you!",
     });
-    dispatch(actions.game.checkCodeAnswer(code, "Hash"));
+    setShowModalButton(false);
+    const newHash = Date.now().toString();
+    dispatch(actions.game.checkCodeAnswer(code, newHash));
+    setHash(newHash);
     setModalVisible(true);
   };
 
-  const onModalPressed = () => {
+  const onModalClosed = () => {
     setModalVisible(false);
+    setShowModalButton(false);
   };
 
   const leftPage =
@@ -81,14 +117,19 @@ export const StoryScreen: React.FC = () => {
     <ThroughFade>
       <SkeletonModal
         message={skeletonMessage}
-        onPress={onModalPressed}
+        onPress={onModalClosed}
         visible={modalVisible}
+        showButton={showModalButton}
       />
       <AppBar />
       <Container
         fluid
-        style={{ backgroundColor: "#000", overflow: "hidden", height: "100vh",
-        opacity: modalVisible? 0.1 : 1}}
+        style={{
+          backgroundColor: "#000",
+          overflow: "hidden",
+          height: "100vh",
+          opacity: modalVisible ? 0.1 : 1,
+        }}
       >
         <Row>
           <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>

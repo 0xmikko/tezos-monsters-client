@@ -10,13 +10,22 @@ import styled from "styled-components";
 
 export interface MagicButtonProps {
   title: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-export const MagicButton: React.FC<MagicButtonProps> = ({ title, onClick }) => {
+export const MagicButton: React.FC<MagicButtonProps> = ({
+  title,
+  onClick,
+  disabled,
+}) => {
   return (
     <Container>
-      <StyledButton className="align-self-center" onClick={onClick} >
+      <StyledButton
+        className="align-self-center"
+        onClick={onClick}
+        disabled={disabled}
+      >
         {title}
       </StyledButton>
     </Container>
@@ -28,23 +37,26 @@ const StyledButton = styled(Button)`
   margin-bottom: 5px;
   width: 80%;
   background-color: #6f1b1b;
-  font-family: 'SansSerif';
+  font-family: "SansSerif";
   font-size: 22px;
   border: 1px solid black;
-  
+
   &:hover {
     background-color: #6f1b1b;
     color: white;
     border: 1px solid black;
     box-shadow: 1px 2px 2px 2px black;
-   
   }
-    &:active {
+  &:active {
     background-color: #6f1b1b;
     color: white;
     border: 1px solid black;
     box-shadow: 1px 2px 2px 2px black;
-   
+  }
+  &:disabled {
+    background-color: #454545;
+    color: white;
+    border: 1px solid black;
   }
 `;
 
