@@ -17,8 +17,9 @@ export const WelcomeScreen: React.FC = () => {
         <span
           style={{
             fontFamily: "Godzilla",
-            fontSize: "100pt",
+            fontSize: "140pt",
             color: "#ffb600",
+              textShadow: '4px 4px 0 white, 4px -4px 0 white, -4px 4px 0 white, -4px -4px 0 white',
           }}
         >
           Monsters Factory!
@@ -30,9 +31,11 @@ export const WelcomeScreen: React.FC = () => {
             fontSize: "50pt",
             color: "#fff",
             fontWeight: 1000,
+              textShadow: '1px black',
           }}
         >
-          Get started! It's free!
+          Play horror game & learn Tezos!
+
         </span></a>
       </div>
     </Container>

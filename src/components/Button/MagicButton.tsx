@@ -33,8 +33,8 @@ export const MagicButton: React.FC<MagicButtonProps> = ({
 };
 
 const StyledButton = styled(Button)`
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   width: 80%;
   background-color: #6f1b1b;
   font-family: "SansSerif";

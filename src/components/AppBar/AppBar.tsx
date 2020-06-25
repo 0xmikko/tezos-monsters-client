@@ -40,7 +40,7 @@ export const AppBar = () => {
           Monsters Factory
         </span>
       </Navbar.Brand>
-      <Nav style={{ justifyContent: "right", width: "100%", color: "#fff" }}>
+      <Nav style={{ justifyContent: "flex-end", width: "100%", color: "#fff" }}>
         <Nav.Item>
           <img
             src={"/images/gold.png"}

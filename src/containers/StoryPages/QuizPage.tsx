@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import { MagicButton } from "../../components/Button/MagicButton";
 import { StoryPage } from "../../core/storyPage";
 import { Answer } from "../../core/answer";
+import styled from "styled-components";
 
 interface QuizPageProps {
   data: StoryPage;
@@ -23,7 +24,6 @@ export const QuizPage: React.FC<QuizPageProps> = ({
   const answersRendered = (data.answers || []).map((e) => (
     <>
       <MagicButton title={e.name} onClick={() => onAnswerClicked(e)} />
-      <br />
     </>
   ));
 
@@ -37,3 +37,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({
     </div>
   );
 };
+
+const MarkdownStyles = styled.div`
+& > p { font-size: 35pt; }
+`

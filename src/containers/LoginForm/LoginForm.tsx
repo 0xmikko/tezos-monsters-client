@@ -39,8 +39,8 @@ export const LoginForm: React.FC<Props> = ({onSubmit}: Props) => {
   return (
     <Container className={'login-form'}>
         <img src={logo} alt={"logo"} style={{height: '40px'}}/>
-
-        <div className="divider-text">login to admin panel</div>
+        Welcome to Tezos game which could help you to learn Ligo and Tezos basics.
+        <div className="divider-text">login to start</div>
             <Button className="btn-outline-google btn-block" onClick={() => {window.location.assign(SSO_ADDR + '/auth/login/google/')}}>
                 Sign in with Google
             </Button>

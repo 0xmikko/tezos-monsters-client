@@ -87,11 +87,12 @@ export const CodePage: React.FC<CodePageProps> = ({
           justifyContent: "space-between",
           alignItems: "center",
           flex: 1,
+
           backgroundColor: "#090971",
         }}
       >
-        <span style={{ color: "white" }}>
-          <strong>{data.contractName || "Ligo editor"}</strong>{" "}
+        <span style={{ color: "white", fontSize: '11pt', fontWeight: 700 }}>
+          {data.contractName || "Ligo editor"}
         </span>
         {IdeAppBar}
       </div>
@@ -99,15 +100,18 @@ export const CodePage: React.FC<CodePageProps> = ({
       <div
         style={{
           backgroundColor: "white",
-          height: "25%",
+          height: "20%",
           overflowY: "scroll",
           padding: 20,
+            fontSize: '11pt',
+
         }}
       >
-        Hint
+          <div style={{height: "auto", justifyContent: 'flex-start', display: 'flex'}}></div>
+          <strong>Code Review</strong>
         <br />
-        <span style={{ color: review?.error ? "red" : "black" }}>
-          {(review?.result || "").split("\n").map((i) => (
+        <span style={{ color: review?.error ? "red" : "black",  }}>
+          {(review?.result || "" + '\n\n\n\n').split("\n").map((i) => (
             <>
               {i}
               <br />

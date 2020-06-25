@@ -95,7 +95,7 @@ export const StoryScreen: React.FC = () => {
   const submitCode = (code: string) => {
     setSkeletonMessage({
       header: "Checking your code",
-      text: "Relax, we will check you!",
+      text: "Relax, we review your code!",
     });
     setShowModalButton(false);
     const newHash = Date.now().toString();
@@ -145,7 +145,7 @@ export const StoryScreen: React.FC = () => {
         <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
           {leftPage}
         </Col>
-        <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
+        <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0, overflowY: 'scroll' }}>
           {rightPage}
         </Col>
       </Row>
