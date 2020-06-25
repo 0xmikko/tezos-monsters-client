@@ -58,7 +58,7 @@ export const StoryScreen: React.FC = () => {
             setSkeletonMessage({
               header: review?.error ? "Found some errors!" : "Great Job",
               text: review?.error
-                ? "Check errors in hint area under editor"
+                ? "Check errors in code review window under editor"
                 : "SuperJob!",
               buttonText: review?.error ? "Try again" : "Next",
             });

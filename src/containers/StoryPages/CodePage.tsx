@@ -48,21 +48,21 @@ export const CodePage: React.FC<CodePageProps> = ({
             dispatch(actions.game.getCurrentPage())
 
         }}
-        style={{ marginRight: "10px" }}
+        style={{ marginRight: "10px", backgroundColor: 'green' }}
       >
         Next page
       </StyledButton>{" "}
     </div>
   ) : (
     <div>
-      <StyledButton
-        size={"sm"}
-        onClick={checkCode}
-        style={{ marginRight: "10px" }}
-      >
-        Show me right answer [ -100,000 ]
-      </StyledButton>{" "}
-      <StyledButton size={"sm"} onClick={checkCode}>
+      {/*<StyledButton*/}
+      {/*  size={"sm"}*/}
+      {/*  onClick={checkCode}*/}
+      {/*  style={{ marginRight: "10px" }}*/}
+      {/*>*/}
+      {/*  Show me right answer [ -100,000 ]*/}
+      {/*</StyledButton>{" "}*/}
+      <StyledButton size={"sm"} onClick={checkCode} >
         Check answer
       </StyledButton>
     </div>

@@ -81,7 +81,12 @@ li {
 }
 
 pre {
+  font-size: 18px;
   background-color: #e6edf5;
+  word-wrap: normal;
+  overflow-x: hidden;
+  word-break: keep-all;
+  white-space: normal;
 }
 
 .picture_page {
@@ -105,6 +110,7 @@ pre {
   overflow-y: scroll;
   font-size: 18pt;
   line-height: 1.4;
+  word-wrap: break-spaces;
 }
 
 .quiz_page {
