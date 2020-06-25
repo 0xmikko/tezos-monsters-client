@@ -43,14 +43,26 @@ export const StoryScreen: React.FC = () => {
     (state: RootState) => state.operations.data[hash]?.data?.status
   );
 
+  const review = useSelector((state: RootState) => state.game.response);
+  const {isStepSolved } = useSelector((state: RootState) => state.profile);
+
   // TODO: Move status to new Dataloader component
 
   useEffect(() => {
     if (hash !== "0") {
       switch (operationStatus) {
         case STATUS.SUCCESS:
-          setShowModalButton(true);
           setHash("0");
+          if (data?.isCodePage) {
+            setSkeletonMessage({
+              header: review?.error ? "Found some errors!" : "Great Job",
+              text: review?.error
+                ? "Check errors in hint area under editor"
+                : "SuperJob!",
+              buttonText: review?.error ? "Try again" : "Next",
+            });
+          }
+          setShowModalButton(true);
           break;
 
         case STATUS.FAILURE:
@@ -65,6 +77,7 @@ export const StoryScreen: React.FC = () => {
     setSkeletonMessage({
       header: answer.isCorrect ? "Great job!" : "You are wrong!",
       text: answer.message,
+      buttonText: "Next",
     });
 
     if (answer !== undefined && answer.isCorrect) {
@@ -108,7 +121,7 @@ export const StoryScreen: React.FC = () => {
     data === undefined ? (
       "Loading"
     ) : data.isCodePage ? (
-      <CodePage data={data} onCheckCode={submitCode} />
+      <CodePage data={data} onCheckCode={submitCode} done={isStepSolved}/>
     ) : (
       <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
     );

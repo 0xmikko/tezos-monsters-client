@@ -5,7 +5,7 @@
  */
 
 import { Profile } from "../../core/profile";
-import { GameActions } from "./";
+import { GameAction } from "./";
 import { CodeResponse, CodeRightAnswer } from "../../core/code";
 import { StoryPage } from "../../core/storyPage";
 
@@ -23,7 +23,7 @@ const initialState: CodeState = {
 
 export default function createReducer(
   state: CodeState = initialState,
-  action: GameActions
+  action: GameAction
 ): CodeState {
   switch (action.type) {
     default:
@@ -38,6 +38,11 @@ export default function createReducer(
       return {
         ...state,
         response: action.payload,
+      };
+    case "CODE_REVIEW_RESET":
+      return {
+        ...state,
+        response: undefined,
       };
   }
 

@@ -14,4 +14,5 @@ export interface Profile {
     currentPage: string;
     gold: number;
     shares: number;
+    isStepSolved: boolean;
 }

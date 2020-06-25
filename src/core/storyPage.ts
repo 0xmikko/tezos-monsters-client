@@ -16,6 +16,7 @@ export interface StoryPage {
      hasQuestions: boolean;
      isCodePage: boolean;
      initialCode?: string;
+     contractName?: string;
      answers: Answer[];
 
 

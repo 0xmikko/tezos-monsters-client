@@ -4,33 +4,77 @@
  *
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { StoryPage } from "../../core/storyPage";
 
 import { Editor } from "../../components/IDE/editor";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import styled from "styled-components";
+import actions from "../../store/actions";
 
 interface CodePageProps {
   data: StoryPage;
   onCheckCode: (code: string) => void;
+  done: boolean;
 }
-export const CodePage: React.FC<CodePageProps> = ({ data, onCheckCode }) => {
+export const CodePage: React.FC<CodePageProps> = ({
+  data,
+  onCheckCode,
+  done,
+}) => {
+  const dispatch = useDispatch();
   const [code, setCode] = useState(data.initialCode || "");
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+    setCode(data.initialCode || "");
+    setLoading(false);
+  }, [data.initialCode]);
 
   const review = useSelector((state: RootState) => state.game.response);
-
-  const editor = {
-    title: "Smart Contract",
-    language: "pascaligo",
-    code,
-  };
 
   const checkCode = () => {
     onCheckCode(code);
   };
+
+  const IdeAppBar = done ? (
+    <div>
+      <StyledButton
+        size={"sm"}
+        onClick={() => {
+            setLoading(true);
+            dispatch(actions.game.resetCodeReview())
+            dispatch(actions.game.getCurrentPage())
+
+        }}
+        style={{ marginRight: "10px" }}
+      >
+        Next page
+      </StyledButton>{" "}
+    </div>
+  ) : (
+    <div>
+      <StyledButton
+        size={"sm"}
+        onClick={checkCode}
+        style={{ marginRight: "10px" }}
+      >
+        Show me right answer [ -100,000 ]
+      </StyledButton>{" "}
+      <StyledButton size={"sm"} onClick={checkCode}>
+        Check answer
+      </StyledButton>
+    </div>
+  );
+
+  const editor = loading ? "Loading" :  <Editor
+      value={code}
+      language={"pascaligo"}
+      theme={{ mode: "light" }}
+      onChange={setCode}
+      style={{ height: "75%" }}
+  />
 
   return (
     <div className="code_page">
@@ -41,32 +85,17 @@ export const CodePage: React.FC<CodePageProps> = ({ data, onCheckCode }) => {
           padding: 8,
           display: "flex",
           justifyContent: "space-between",
-          alignItems: 'center',
+          alignItems: "center",
           flex: 1,
-          backgroundColor: '#090971'
+          backgroundColor: "#090971",
         }}
       >
-        <span style={{ color: "white" }}><strong>Ligo editor</strong> </span>
-        <div>
-          <StyledButton
-            size={"sm"}
-            onClick={checkCode}
-            style={{ marginRight: "10px" }}
-          >
-            Show me right answer [ -100,000 ]
-          </StyledButton>{" "}
-          <StyledButton size={"sm"} onClick={checkCode}>
-            Check answer
-          </StyledButton>
-        </div>
+        <span style={{ color: "white" }}>
+          <strong>{data.contractName || "Ligo editor"}</strong>{" "}
+        </span>
+        {IdeAppBar}
       </div>
-      <Editor
-        value={editor.code}
-        language={editor.language}
-        theme={{ mode: "light" }}
-        onChange={setCode}
-        style={{ height: "75%" }}
-      />
+        {editor}
       <div
         style={{
           backgroundColor: "white",

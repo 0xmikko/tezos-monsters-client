@@ -8,7 +8,7 @@ import { StoryPage } from "../../core/storyPage";
 
 export const namespace = "game";
 
-export type GameActions =
+export type GameAction =
   | {
       type: "STORY_PAGE_SUCCESS";
       payload: StoryPage;
@@ -18,6 +18,5 @@ export type GameActions =
       payload: CodeResponse;
     }
   | {
-      type: "CODE_SHOW_ME_ANSWER";
-      payload: CodeRightAnswer;
+      type: "CODE_REVIEW_RESET";
     };

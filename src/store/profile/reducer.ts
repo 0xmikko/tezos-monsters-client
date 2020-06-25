@@ -18,6 +18,7 @@ const initialState: ProfileState = {
   currentPage: '',
   gold: 0,
   shares: 0,
+  isStepSolved: false,
 };
 
 
