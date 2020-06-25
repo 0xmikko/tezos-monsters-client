@@ -21,6 +21,7 @@ import { PicturePage } from "../../containers/StoryPages/PicturePage";
 import AppBar from "../../components/AppBar/AppBar";
 import { TextPage } from "../../containers/StoryPages/TextPage";
 import { STATUS } from "../../store/utils/status";
+import { MonsterFactory } from "../../containers/MonsterFactory/MonsterFactory";
 
 export const StoryScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export const StoryScreen: React.FC = () => {
   );
 
   const review = useSelector((state: RootState) => state.game.response);
-  const {isStepSolved } = useSelector((state: RootState) => state.profile);
+  const { isStepSolved } = useSelector((state: RootState) => state.profile);
 
   // TODO: Move status to new Dataloader component
 
@@ -121,10 +122,35 @@ export const StoryScreen: React.FC = () => {
     data === undefined ? (
       "Loading"
     ) : data.isCodePage ? (
-      <CodePage data={data} onCheckCode={submitCode} done={isStepSolved}/>
+      <CodePage data={data} onCheckCode={submitCode} done={isStepSolved} />
     ) : (
       <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
     );
+
+  const twoPages = data === undefined ? (
+      "Loading"
+  ) : data.isMonsterPage ? (
+    <MonsterFactory data={data} onAnswerClicked={onAnswerClicked}/>
+  ) : (
+    <Container
+      fluid
+      style={{
+        backgroundColor: "#000",
+        overflow: "hidden",
+        height: "100vh",
+        opacity: modalVisible ? 0.1 : 1,
+      }}
+    >
+      <Row>
+        <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
+          {leftPage}
+        </Col>
+        <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
+          {rightPage}
+        </Col>
+      </Row>
+    </Container>
+  );
 
   return (
     <ThroughFade>
@@ -135,24 +161,7 @@ export const StoryScreen: React.FC = () => {
         showButton={showModalButton}
       />
       <AppBar />
-      <Container
-        fluid
-        style={{
-          backgroundColor: "#000",
-          overflow: "hidden",
-          height: "100vh",
-          opacity: modalVisible ? 0.1 : 1,
-        }}
-      >
-        <Row>
-          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
-            {leftPage}
-          </Col>
-          <Col xl={6} lg={6} md={6} sm={6} xs={6} style={{ padding: 0 }}>
-            {rightPage}
-          </Col>
-        </Row>
-      </Container>
+      {twoPages}
     </ThroughFade>
   );
 };

@@ -13,8 +13,8 @@ export interface StoryPage {
      header: string;
      text : string;
      image: string;
-     hasQuestions: boolean;
      isCodePage: boolean;
+     isMonsterPage: boolean;
      initialCode?: string;
      contractName?: string;
      answers: Answer[];
@@ -28,7 +28,7 @@ export const StoryNewDefault : StoryPage = {
      header: 'New Story',
      text: '',
      image: '',
-     hasQuestions: false,
+     isMonsterPage: false,
      isCodePage: false,
      answers: []
 }

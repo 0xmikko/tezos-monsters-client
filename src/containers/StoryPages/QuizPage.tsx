@@ -13,10 +13,12 @@ import { Answer } from "../../core/answer";
 interface QuizPageProps {
   data: StoryPage;
   onAnswerClicked: (a: Answer) => void;
+  extraComponent?: React.ReactElement[];
 }
 export const QuizPage: React.FC<QuizPageProps> = ({
   data,
   onAnswerClicked,
+    extraComponent
 }) => {
   const answersRendered = (data.answers || []).map((e) => (
     <>
@@ -29,6 +31,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({
     <div className={"quiz_page"}>
       <h2>{data.header}</h2>
       <ReactMarkdown>{data.text}</ReactMarkdown>
+        {extraComponent}
 
       {answersRendered}
     </div>
