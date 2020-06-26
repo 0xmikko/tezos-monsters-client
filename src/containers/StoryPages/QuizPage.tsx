@@ -34,6 +34,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({
         {extraComponent}
 
       {answersRendered}
+      <div style={{height: 100}} />
     </div>
   );
 };

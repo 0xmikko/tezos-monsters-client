@@ -59,7 +59,7 @@ export const StoryScreen: React.FC = () => {
               header: review?.error ? "Found some errors!" : "Great Job",
               text: review?.error
                 ? "Check errors in code review window under editor"
-                : "SuperJob!",
+                : "Press Next button in top right corner to go further!",
               buttonText: review?.error ? "Try again" : "Next",
             });
           }
