@@ -34,7 +34,7 @@ export const WelcomeScreen: React.FC = () => {
               textShadow: '1px black',
           }}
         >
-          Play horror game & learn Tezos!
+          Learn Ligo language and Tezos <br/>by playing a horror game!
 
         </span></a>
       </div>
