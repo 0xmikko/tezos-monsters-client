@@ -30,7 +30,7 @@ export const actionsAfterAuth = (): ThunkAction<
 > => async (dispatch) => {
   // Connect sockets to listen server events
   dispatch(profile.connectSocket());
-  dispatch(profile.getProfile('actionsAfterAuth'));
+  // dispatch(profile.getProfile('actionsAfterAuth'));
   dispatch(operations.connectSocket());
   dispatch(game.connectSocket());
 
