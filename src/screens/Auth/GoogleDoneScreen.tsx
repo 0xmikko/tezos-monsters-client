@@ -4,7 +4,7 @@
  *
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {parse} from 'querystring';
@@ -39,13 +39,16 @@ export const GoogleAuthDoneScreen: React.FC<OAuthCompleteProps> = ({
   }
 
   // parse querystring & get code
-  const values = parse(history.location.search) as {code: string};
-
-  if (values.code !== '' && !requestSent) {
+  const values = parse(history.location.search.replace("?", "")) as {code: string};
+  useEffect(() => {
+    if (values.code !== '' && !requestSent) {
     setRequestSent(true);
     dispatch(actions.auth.clearStatus());
     dispatch(actions.auth.oauthAuthenticate('google-oauth2', values.code));
   }
+  }, [values.code])
+
+
 
   return <BeatLoader />;
 };

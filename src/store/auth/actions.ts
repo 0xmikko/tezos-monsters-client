@@ -40,6 +40,8 @@ export const oauthAuthenticate = (
   const endpoint = "/auth/google/done/";
   const json = JSON.stringify({ provider, code });
 
+  console.log("CODE", code)
+
   dispatch(authenticate(endpoint, json));
 };
 
