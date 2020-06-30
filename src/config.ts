@@ -11,7 +11,7 @@ export const BACKEND_ADDR =
 
 export const SSO_ADDR =
     process.env.NODE_ENV === "development"
-        ? "https://crm-monsters.herokuapp.com\""
+        ? "https://crm-monsters.herokuapp.com"
         : "https://crm-monsters.herokuapp.com";
 
 export const GA_TRACKER = "UA-171397157-1";
