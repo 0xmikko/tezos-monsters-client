@@ -12,7 +12,7 @@ export const BACKEND_ADDR =
 export const SSO_ADDR =
     process.env.NODE_ENV === "development"
         ? "http://localhost:4000"
-        : "https://crm-monsters.herokuapp.com";
+        : "https://t-monsters-stage.herokuapp.com/";
 
 export const GA_TRACKER = "UA-159014001-1";
 export const FB_PIXEL = "";
