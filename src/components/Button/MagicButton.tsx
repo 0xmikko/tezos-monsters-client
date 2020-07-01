@@ -12,12 +12,14 @@ export interface MagicButtonProps {
   title: string;
   disabled?: boolean;
   onClick?: () => void;
+  style?: object
 }
 
 export const MagicButton: React.FC<MagicButtonProps> = ({
   title,
   onClick,
   disabled,
+    style
 }) => {
   return (
     <Container>
@@ -25,6 +27,7 @@ export const MagicButton: React.FC<MagicButtonProps> = ({
         className="align-self-center"
         onClick={onClick}
         disabled={disabled}
+        style={style}
       >
         {title}
       </StyledButton>
