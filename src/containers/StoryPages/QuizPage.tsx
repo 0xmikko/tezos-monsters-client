@@ -4,7 +4,7 @@
  *
  */
 
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import ReactMarkdown from "react-markdown";
 import { MagicButton } from "../../components/Button/MagicButton";
 import { StoryPage } from "../../core/storyPage";
@@ -27,9 +27,18 @@ export const QuizPage: React.FC<QuizPageProps> = ({
     </>
   ));
 
+    const myRef = useRef(null);
+
+    useEffect(() => {
+        if (myRef !==null  && myRef.current !== null) {
+            // @ts-ignore
+            myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, [data.header]);
+
   return (
     <div className={"quiz_page"}>
-      <h2>{data.header}</h2>
+        <h2 ref={myRef} style={{paddingTop: '95px'}}>{data.header}</h2>
       <ReactMarkdown>{data.text}</ReactMarkdown>
         {extraComponent}
 

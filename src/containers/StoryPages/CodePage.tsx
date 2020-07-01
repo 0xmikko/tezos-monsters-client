@@ -87,7 +87,7 @@ export const CodePage: React.FC<CodePageProps> = ({
           justifyContent: "space-between",
           alignItems: "center",
           flex: 1,
-
+            marginTop: "45px",
           backgroundColor: "#090971",
         }}
       >

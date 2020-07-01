@@ -57,9 +57,9 @@ export const StoryScreen: React.FC = () => {
           setHash("0");
           if (data?.isCodePage) {
             setSkeletonMessage({
-              header: review?.error ? "Found some errors!" : "Great Job",
+              header: review?.error ? "Never give up!" : "Great Job",
               text: review?.error
-                ? "Check errors in code review window under editor"
+                ? "We found some errors in your code. Check details in Code Review window under main editor"
                 : "Press Next button in top right corner to go further!",
               buttonText: review?.error ? "Try again" : "Next",
             });
@@ -95,8 +95,8 @@ export const StoryScreen: React.FC = () => {
 
   const submitCode = (code: string) => {
     setSkeletonMessage({
-      header: "Checking your code",
-      text: "Relax, we review your code!",
+      header: "Time to relax",
+      text: "We're reviewing your code!",
     });
     setShowModalButton(false);
     const newHash = Date.now().toString();

@@ -33,7 +33,7 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
   return (
     <Container
       style={{
-        top: window.innerHeight / 2 - 100,
+        top: window.innerHeight / 2 - 200,
         left: window.innerWidth / 2 - 300,
         visibility: visible ? "visible" : "hidden",
         justifyContent: "center",
