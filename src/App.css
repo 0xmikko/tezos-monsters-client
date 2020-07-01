@@ -57,7 +57,7 @@ h6 {
 }
 
 h2 {
-  font-size: 45px;
+  font-size: 40px;
   font-weight: 800;
 }
 
@@ -89,6 +89,37 @@ pre {
   white-space: normal;
 }
 
+
+.welcome-screen {
+  height: 100vh;
+  display: block !important;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 0 !important;
+  margin: 0;
+  background-image: url("https://storage.googleapis.com/story_pages/back_start.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom;
+
+}
+
+.title {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -ms-transform: translate(-40%, -40%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+
+  color: white;
+  transition: all 1s;
+}
+
+
 .picture_page {
   flex: 1;
   display: flex;
@@ -115,7 +146,7 @@ pre {
 
 .quiz_page {
   height: 100vh;
-  background-image: url("/images/p_right.jpg");
+  background-image: url("https://storage.googleapis.com/story_pages/p_right.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: repeat-y;

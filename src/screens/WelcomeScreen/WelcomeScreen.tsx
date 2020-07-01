@@ -6,8 +6,6 @@
 
 import React from "react";
 import { Container } from "react-bootstrap";
-import "./WelcomeScreen.css";
-import text_mf from "./text_mf.svg";
 import { MagicButton } from "../../components/Button/MagicButton";
 import { useHistory } from "react-router";
 

@@ -42,7 +42,7 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
     >
       <Media>
         <img
-          src={"/images/wrong.png"}
+          src={"https://storage.googleapis.com/story_pages/wrong.png"}
           height={150}
           className="align-self-center mr-3"
           alt={"Skeleton"}
