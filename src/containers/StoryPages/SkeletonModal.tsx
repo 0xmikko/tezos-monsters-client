@@ -8,7 +8,6 @@ import React from "react";
 import { Media } from "react-bootstrap";
 import { MagicButton } from "../../components/Button/MagicButton";
 import styled from "styled-components";
-import Linkify from 'react-linkify';
 
 export interface SkeletonMessage {
   header: string;
@@ -46,6 +45,7 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
           src={"/images/wrong.png"}
           height={150}
           className="align-self-center mr-3"
+          alt={"Skeleton"}
         />
         <Media.Body style={{minWidth: '370px', textAlign: 'center'}}
 
@@ -61,7 +61,7 @@ export const SkeletonModal: React.FC<SkeletonProps> = ({
             <h3 style={{ color: "#fab70dff" }}>{message.header}</h3>
 
             <p style={{ color: "#fab70dff", fontSize: "20pt" }}>
-                <Linkify>{message.text}</Linkify>
+                <div dangerouslySetInnerHTML={{__html: message.text}} />
             </p>
           </div>
           <div
