@@ -22,6 +22,7 @@ import AppBar from "../../components/AppBar/AppBar";
 import { TextPage } from "../../containers/StoryPages/TextPage";
 import { STATUS } from "../../store/utils/status";
 import { MonsterFactory } from "../../containers/MonsterFactory/MonsterFactory";
+import {Helmet} from "react-helmet";
 
 export const StoryScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -154,6 +155,7 @@ export const StoryScreen: React.FC = () => {
 
   return (
     <ThroughFade>
+      <Helmet title={`${data?.header || ""} - Tezos Monsters` } />
       <SkeletonModal
         message={skeletonMessage}
         onPress={onModalClosed}
