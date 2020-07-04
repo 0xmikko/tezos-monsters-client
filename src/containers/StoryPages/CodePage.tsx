@@ -54,6 +54,7 @@ export const CodePage: React.FC<CodePageProps> = ({
         size={"sm"}
         onClick={() => {
           setLoading(true);
+          setRightAnswerAsked(false);
           dispatch(actions.game.resetCodeReview());
           dispatch(actions.game.getCurrentPage());
         }}

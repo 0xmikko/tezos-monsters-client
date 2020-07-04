@@ -6,12 +6,12 @@
 
 export const BACKEND_ADDR =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:4000"
+        ? "https://t-monsters-stage.herokuapp.com"
         : "https://t-monsters.herokuapp.com";
 
 export const SSO_ADDR =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:4000"
+        ? "https://t-monsters-stage.herokuapp.com"
         : "https://t-monsters.herokuapp.com";
 
 export const GA_TRACKER = "UA-171397157-1";
