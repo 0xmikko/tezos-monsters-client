@@ -24,6 +24,8 @@ import { STATUS } from "../../store/utils/status";
 import { MonsterFactory } from "../../containers/MonsterFactory/MonsterFactory";
 import {Helmet} from "react-helmet";
 
+type RequestType = 'ANSWER_QUIZ' | 'SUBMIT_CODE' | 'SHOW_ME_ANSWER'
+
 export const StoryScreen: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -38,6 +40,7 @@ export const StoryScreen: React.FC = () => {
   }, []);
 
   const [hash, setHash] = useState("0");
+  const [requestType, setRequestType] = useState<RequestType>("ANSWER_QUIZ");
 
   const data = useSelector((state: RootState) => state.game.storyPage);
 
@@ -55,14 +58,27 @@ export const StoryScreen: React.FC = () => {
       switch (operationStatus) {
         case STATUS.SUCCESS:
           setHash("0");
+          switch(requestType)
+          {
+            case 'SUBMIT_CODE':
+              setSkeletonMessage({
+                header: review?.error ? "Never give up!" : "Great Job",
+                text: review?.error
+                    ? "We found some errors in your code. Check details in Code Review window under main editor"
+                    : "Press Next button in top right corner to go further!",
+                buttonText: review?.error ? "Try again" : "Next",
+              });
+              break;
+            case 'SHOW_ME_ANSWER':
+              setSkeletonMessage({
+                header: "Time to check right answer",
+                text: "We've loaded right answer to code editor!",
+                buttonText: "Let me check",
+              });
+              break;
+          }
           if (data?.isCodePage) {
-            setSkeletonMessage({
-              header: review?.error ? "Never give up!" : "Great Job",
-              text: review?.error
-                ? "We found some errors in your code. Check details in Code Review window under main editor"
-                : "Press Next button in top right corner to go further!",
-              buttonText: review?.error ? "Try again" : "Next",
-            });
+
           }
           setShowModalButton(true);
           break;
@@ -82,6 +98,8 @@ export const StoryScreen: React.FC = () => {
       buttonText: "Next",
     });
 
+    setRequestType('ANSWER_QUIZ');
+
     if (answer !== undefined && answer.isCorrect) {
       const newHash = Date.now().toString();
       dispatch(actions.game.checkQuizAnswer(answer.id, newHash));
@@ -98,9 +116,23 @@ export const StoryScreen: React.FC = () => {
       header: "Time to relax",
       text: "We're reviewing your code!",
     });
+    setRequestType('SUBMIT_CODE');
     setShowModalButton(false);
     const newHash = Date.now().toString();
     dispatch(actions.game.checkCodeAnswer(code, newHash));
+    setHash(newHash);
+    setModalVisible(true);
+  };
+
+  const showMeAnswer = (code: string) => {
+    setSkeletonMessage({
+      header: "Time to relax",
+      text: "We will show you right answer, it costs 10,000 gold!",
+    });
+    setRequestType('SHOW_ME_ANSWER');
+    setShowModalButton(false);
+    const newHash = Date.now().toString();
+    dispatch(actions.game.showMeAnswer(code, newHash));
     setHash(newHash);
     setModalVisible(true);
   };
@@ -123,9 +155,9 @@ export const StoryScreen: React.FC = () => {
     data === undefined ? (
       "Loading"
     ) : data.isCodePage ? (
-      <CodePage data={data} onCheckCode={submitCode} done={isStepSolved} />
+      <CodePage data={data} onCheckCode={submitCode} onShowMeAnswerClicked={showMeAnswer} done={isStepSolved} />
     ) : (
-      <QuizPage data={data} onAnswerClicked={onAnswerClicked} />
+      <QuizPage data={data} onAnswerClicked={onAnswerClicked}/>
     );
 
   const twoPages = data === undefined ? (

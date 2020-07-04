@@ -71,6 +71,18 @@ export const checkCodeAnswer: (
   opHash,
 });
 
+export const showMeAnswer: (
+    code: string,
+    opHash?: string
+) => SocketEmitAction = (code, opHash) => ({
+  type: "SOCKET_EMIT",
+  namespace,
+  event: "game:showMeAnswer",
+  typeOnFailure: "GAME_FAILURE",
+  payload: { code },
+  opHash,
+});
+
 export const resetCodeReview = (): GameAction => {
   return {
     type: "CODE_REVIEW_RESET",

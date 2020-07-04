@@ -17,16 +17,20 @@ import actions from "../../store/actions";
 interface CodePageProps {
   data: StoryPage;
   onCheckCode: (code: string) => void;
+  onShowMeAnswerClicked: (code: string) => void;
   done: boolean;
 }
 export const CodePage: React.FC<CodePageProps> = ({
   data,
   onCheckCode,
+  onShowMeAnswerClicked,
   done,
 }) => {
   const dispatch = useDispatch();
   const [code, setCode] = useState(data.initialCode || "");
-    const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [rightAnswerAsked, setRightAnswerAsked] = useState(false);
     useEffect(() => {
     setCode(data.initialCode || "");
     setLoading(false);
@@ -38,43 +42,53 @@ export const CodePage: React.FC<CodePageProps> = ({
     onCheckCode(code);
   };
 
+  const showMeAnswer = () => {
+      setLoading(true);
+      setRightAnswerAsked(true);
+      onShowMeAnswerClicked(code);
+  }
+
   const IdeAppBar = done ? (
     <div>
       <StyledButton
         size={"sm"}
         onClick={() => {
-            setLoading(true);
-            dispatch(actions.game.resetCodeReview())
-            dispatch(actions.game.getCurrentPage())
-
+          setLoading(true);
+          dispatch(actions.game.resetCodeReview());
+          dispatch(actions.game.getCurrentPage());
         }}
-        style={{ marginRight: "10px", backgroundColor: 'green' }}
+        style={{ marginRight: "10px", backgroundColor: "green" }}
       >
         Next page
       </StyledButton>{" "}
     </div>
   ) : (
     <div>
-      {/*<StyledButton*/}
-      {/*  size={"sm"}*/}
-      {/*  onClick={checkCode}*/}
-      {/*  style={{ marginRight: "10px" }}*/}
-      {/*>*/}
-      {/*  Show me right answer [ -100,000 ]*/}
-      {/*</StyledButton>{" "}*/}
-      <StyledButton size={"sm"} onClick={checkCode} >
+      <StyledButton
+        size={"sm"}
+        onClick={showMeAnswer}
+        style={{ marginRight: "10px" }}
+        disabled={rightAnswerAsked}
+      >
+        Show me right answer [ -10,000 ]
+      </StyledButton>{" "}
+      <StyledButton size={"sm"} onClick={checkCode}>
         Check answer
       </StyledButton>
     </div>
   );
 
-  const editor = loading ? "Loading" :  <Editor
+  const editor = loading ? (
+    "Loading"
+  ) : (
+    <Editor
       value={code}
       language={"pascaligo"}
       theme={{ mode: "light" }}
       onChange={setCode}
       style={{ height: "75%" }}
-  />
+    />
+  );
 
   return (
     <div className="code_page">
@@ -87,31 +101,36 @@ export const CodePage: React.FC<CodePageProps> = ({
           justifyContent: "space-between",
           alignItems: "center",
           flex: 1,
-            marginTop: "45px",
+          marginTop: "45px",
           backgroundColor: "#090971",
         }}
       >
-        <span style={{ color: "white", fontSize: '11pt', fontWeight: 700 }}>
+        <span style={{ color: "white", fontSize: "11pt", fontWeight: 700 }}>
           {data.contractName || "Ligo editor"}
         </span>
         {IdeAppBar}
       </div>
-        {editor}
+      {editor}
       <div
         style={{
           backgroundColor: "white",
           height: "20%",
           overflowY: "scroll",
           padding: 20,
-            fontSize: '11pt',
-
+          fontSize: "11pt",
         }}
       >
-          <div style={{height: "auto", justifyContent: 'flex-start', display: 'flex'}}></div>
-          <strong>Code Review</strong>
+        <div
+          style={{
+            height: "auto",
+            justifyContent: "flex-start",
+            display: "flex",
+          }}
+        ></div>
+        <strong>Code Review</strong>
         <br />
-        <span style={{ color: review?.error ? "red" : "black",  }}>
-          {(review?.result || "" + '\n\n\n\n').split("\n").map((i) => (
+        <span style={{ color: review?.error ? "red" : "black" }}>
+          {(review?.result || "" + "\n\n\n\n").split("\n").map((i) => (
             <>
               {i}
               <br />
