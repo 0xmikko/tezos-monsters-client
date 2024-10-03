@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ligolang/compact-ligo-ide": "^3.0.3",
-    "@sentry/browser": "^5.12.5",
+    "@sentry/browser": "^8.33.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
